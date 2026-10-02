@@ -9,13 +9,17 @@ function getComputerChoice() {
     } else return "scissors";
 }
 
-function getHumanChoice() {
-    return prompt("Choose rock, paper or scissors: ");
-}
 
 function playGame() {
     let humanScore = 0;
     let computerScore = 0;
+
+    const buttons = document.querySelectorAll("button");
+    buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+            playRound(button.id, getComputerChoice());
+        });
+    })
 
     function playRound(humanChoice, computerChoice) {
         humanChoice = humanChoice.toLowerCase();
@@ -49,10 +53,10 @@ function playGame() {
         }
     }
 
-    for (let i = 0; i < 5; i++) {
-        playRound(getHumanChoice(), getComputerChoice());
-        console.log("Human score: " + humanScore + ", computer score: " + computerScore);
+    while (humanScore < 5 && computerScore < 5) {
+        playRound();
     }
+
 }
 
 
