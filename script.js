@@ -1,5 +1,3 @@
-console.log("Hello World!");
-
 function getComputerChoice() {
     let choice = Math.random();
     if (choice < 0.33) {
@@ -21,41 +19,55 @@ function playGame() {
         });
     })
 
+    const resultsDiv = document.querySelector(".results");
+    const scoreDiv = document.createElement("div");
+
     function playRound(humanChoice, computerChoice) {
-        humanChoice = humanChoice.toLowerCase();
         if (humanChoice === computerChoice) {
-            console.log("It's a tie!");
+            resultsDiv.textContent = "It's a tie!";
             return;
         } else if (humanChoice === "rock") {
             if (computerChoice === "paper") {
-                console.log("You lose! Paper beats rock");
+                resultsDiv.textContent = "You lose! Paper beats rock";
                 computerScore++;
             } else {
-                console.log("You win! Rock beats scissors");
+                resultsDiv.textContent = "You win! Rock beats scissors";
                 humanScore++;
             }
         } else if (humanChoice === "paper") {
             if (computerChoice === "scissors") {
-                console.log("You lose! Scissors beat paper");
+                resultsDiv.textContent = "You lose! Scissors beat paper";
                 computerScore++;
             } else {
-                console.log("You win! Rock beats scissors");
+                resultsDiv.textContent = "You win! Rock beats scissors";
                 humanScore++;
             }
         } else if (humanChoice === "scissors") {
             if (computerChoice === "rock") {
-                console.log("You lose! Rock beats scissors");
+                resultsDiv.textContent = "You lose! Rock beats scissors";
                 computerScore++;
             } else {
-                console.log("You win! Scissors beat paper");
+                resultsDiv.textContent = "You win! Scissors beat paper";
                 humanScore++;
             }
         }
+        scoreDiv.textContent = `Your score: ${humanScore}, computer score: ${computerScore}`;
+        resultsDiv.appendChild(scoreDiv);
+
+        if (humanScore === 5 || computerScore === 5) {
+            resultsDiv.textContent = "End of the game.";
+            if (humanScore === 5) {
+                resultsDiv.textContent += ` You win ${humanScore} : ${computerScore}!`
+            } else {
+                resultsDiv.textContent += ` You lose ${humanScore} : ${computerScore}!`
+            }
+            humanScore = 0;
+            computerScore = 0;
+            return;
+        }
     }
 
-    while (humanScore < 5 && computerScore < 5) {
-        playRound();
-    }
+
 
 }
 
